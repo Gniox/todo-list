@@ -1,15 +1,29 @@
 import React from "react";
+import { white, black } from "color-name";
 
 class TaskLoader extends React.Component {
   render() {
+    let divStyle = {
+      backgroundColor: 'white',
+      display: 'flex',
+      borderRadius: 20,
+      borderColor: 'black',
+      justifyContent: 'center',
+      marginBottom: '5%',
+      marginTop: '5%'
+    }
+    let taskStyle = {
+      fontFamily: 'sans-serif',
+      fontSize: 24,
+    }
     console.log("this is props.tasks: " + this.props.tasks);
     if (this.props.tasks != null) {
       let list = []
       for (let task of this.props.tasks) {
         console.log("In taskLoader: " + task);
           list.push(
-          <div key={task}>
-            <p>{task}</p>
+          <div key={task} style={divStyle}>
+            <p style={taskStyle}>{task}</p>
           </div>
           );
       }
@@ -50,21 +64,57 @@ class ToDoList extends React.Component {
     }
   }
   render() {
+    var todoListContainer = {
+      display: 'flex',
+      justifyContent: 'center',
+      // justifyItems: 'center',
+      // alignItems: 'center',
+      width: '100vw',
+      height: 'auto',
+      // justifyItems: 'center',
+    };
+    var header = {
+      // display: 'flex',
+      // justifyItems: 'center',
+      alignItems: 'center',
+      width: '70%'
+    };
+    var formStyle = {
+      display: 'flex',
+      justifyContent: 'center'
+    }
+    var inputStyle = {
+      fontFamily: 'sans-serif',
+      fontSize: 24,
+      marginRight: 20,
+      width: 225,
+      height: 60,
+      borderRadius: 20
+      
+    }
+    var buttonStyle = {
+      fontFamily: 'sans-serif',
+      fontSize: 24,
+      height: 60,
+      width: 100,
+      borderRadius: 20
+    }
     return (
-      <div className="todoListContainer">
-        <div className="header">
-          <form onSubmit={value => this.handleSubmit(value)}>
+      <div style={todoListContainer}>
+        <div style={header}>
+          <form onSubmit={value => this.handleSubmit(value)} style={formStyle}>
             <input
               placeholder="Enter Task"
               value={this.state.task}
               onChange={this.handleChange}
-            ></input>
-            <button type="submit" onClick={() => this.addTask(this.state.task)}>
+              style={inputStyle}
+            />
+            <button type="submit" onClick={() => this.addTask(this.state.task)} style={buttonStyle}>
               add
             </button>
           </form>
+          <TaskLoader tasks={this.state.taskList}></TaskLoader>
         </div>
-        <TaskLoader tasks={this.state.taskList}></TaskLoader>
       </div>
     );
   }
