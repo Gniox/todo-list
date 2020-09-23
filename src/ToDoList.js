@@ -1,6 +1,4 @@
 import React from "react";
-import { black } from "color-name";
-
 class Task extends React.Component {
   constructor(props) {
     super(props);
@@ -35,7 +33,7 @@ class Task extends React.Component {
     };
     let taskStyle = {
       fontFamily: "sans-serif",
-      fontSize: 24
+      fontSize: this.props.smaller ? 15 : 24
     };
     return (
       <div key={this.props.k} style={!this.state.change ? whiteStyle : redStyle} onClick={() => {this.changeColor(this.props.task)}} onMouseOut={this.changeBack}>
@@ -63,7 +61,7 @@ class TaskLoader extends React.Component {
         count++;
         console.log("In taskLoader: " + task);
         list.push(
-          <Task task={task} delete={this.props.delete} k={count}/>
+          <Task task={task} delete={this.props.delete} k={count} smaller={this.props.smaller}/>
         );
       }
       return <div style={containerStyle} key={this.props.tasks.length}>{list}</div>;
@@ -78,11 +76,14 @@ class ToDoList extends React.Component {
     this.state = {
       task: "",
       taskList: [],
+      windowWidth: 0,
+      widnowHeight: 0
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.addTask = this.addTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
+    this.updateDimensions = this.updateDimensions.bind(this);
   }
   handleChange(event) {
     this.setState({ task: event.target.value });
@@ -123,7 +124,24 @@ class ToDoList extends React.Component {
       }    
     }
   }
+  componentDidMount() {
+    this.updateDimensions();
+    window.addEventListener("resize", this.updateDimensions);
+  }
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateDimensions);
+  }
+  updateDimensions() {
+    let windowWidth = typeof window !== "undefined" ? window.innerWidth : 0;
+    let windowHeight = typeof window !== "undefined" ? window.innerHeight : 0;
+
+    this.setState({windowWidth, windowHeight});
+  }
   render() {
+    const { windowWidth } = this.state;
+
+    const smaller = windowWidth < 600;
+
     var todoListContainer = {
       display: "flex",
       justifyContent: "center",
@@ -131,7 +149,7 @@ class ToDoList extends React.Component {
       // alignItems: 'center',
       width: "100vw",
       maxHeight: '90vh',
-      height: '90vh',
+      height: '85vh',
       borderRadius: 20,
       backgroundColor: '#e8c090',
       // justifyItems: 'center',
@@ -152,19 +170,19 @@ class ToDoList extends React.Component {
     };
     var inputStyle = {
       fontFamily: "sans-serif",
-      fontSize: 24,
+      fontSize: smaller ? 15 : 24,
       marginRight: 20,
-      width: 225,
-      height: 52,
+      width: smaller ? '50%' : '30%',
+      height: 'auto',
       marginTop: 20,
       borderColor: 'transparent',
       // borderRadius: 20
     };
     var buttonStyle = {
       fontFamily: "sans-serif",
-      fontSize: 24,
-      height: 60,
-      width: 100,
+      fontSize: smaller ? 15 : 24,
+      height: 'auto',
+      width: smaller ? '25%' : '15%',
       marginTop: 20,
       borderColor: 'transparent',
       backgroundColor: '#9e55ab'
@@ -191,6 +209,7 @@ class ToDoList extends React.Component {
           <TaskLoader
             tasks={this.state.taskList}
             delete={this.deleteTask}
+            smaller={smaller}
           ></TaskLoader>
         </div>
       </div>
