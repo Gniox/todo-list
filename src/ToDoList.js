@@ -1,4 +1,5 @@
 import React from "react";
+import { black } from "color-name";
 
 class Task extends React.Component {
   constructor(props) {
@@ -17,23 +18,17 @@ class Task extends React.Component {
   }
   render() {
     let whiteStyle = {
-      backgroundColor: 'white',
+      backgroundColor: '#e3fac5',
       display: "flex",
       borderRadius: 20,
-      border: 'solid',
-      borderColor: "black",
-      borderWidth: 1,
       justifyContent: "center",
       marginBottom: "2%",
       marginTop: "2%"
     };
     let redStyle = {
-      backgroundColor: 'red',
+      backgroundColor: '#eb5e8d',
       display: "flex",
-      border: 'solid',
       borderRadius: 20,
-      borderColor: "black",
-      borderWidth: 1,
       justifyContent: "center",
       marginBottom: "2%",
       marginTop: "2%"
@@ -83,7 +78,6 @@ class ToDoList extends React.Component {
     this.state = {
       task: "",
       taskList: [],
-      color: "white"
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -139,7 +133,7 @@ class ToDoList extends React.Component {
       maxHeight: '90vh',
       height: '90vh',
       borderRadius: 20,
-      backgroundColor: 'lightYellow',
+      backgroundColor: '#e8c090',
       // justifyItems: 'center',
     };
     var header = {
@@ -161,8 +155,9 @@ class ToDoList extends React.Component {
       fontSize: 24,
       marginRight: 20,
       width: 225,
-      height: 55,
-      marginTop: 20
+      height: 52,
+      marginTop: 20,
+      borderColor: 'transparent',
       // borderRadius: 20
     };
     var buttonStyle = {
@@ -170,7 +165,9 @@ class ToDoList extends React.Component {
       fontSize: 24,
       height: 60,
       width: 100,
-      marginTop: 20
+      marginTop: 20,
+      borderColor: 'transparent',
+      backgroundColor: '#9e55ab'
       // borderRadius: 20
     };
     return (
