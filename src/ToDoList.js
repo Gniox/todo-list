@@ -20,21 +20,23 @@ class Task extends React.Component {
       backgroundColor: 'white',
       display: "flex",
       borderRadius: 20,
+      border: 'solid',
       borderColor: "black",
-      borderWidth: 5,
+      borderWidth: 1,
       justifyContent: "center",
-      marginBottom: "5%",
-      marginTop: "5%"
+      marginBottom: "2%",
+      marginTop: "2%"
     };
     let redStyle = {
       backgroundColor: 'red',
       display: "flex",
+      border: 'solid',
       borderRadius: 20,
       borderColor: "black",
-      borderWidth: 5,
+      borderWidth: 1,
       justifyContent: "center",
-      marginBottom: "5%",
-      marginTop: "5%"
+      marginBottom: "2%",
+      marginTop: "2%"
     };
     let taskStyle = {
       fontFamily: "sans-serif",
@@ -50,6 +52,14 @@ class Task extends React.Component {
 
 class TaskLoader extends React.Component {
   render() {
+    let containerStyle = {
+      overflow: 'scroll',
+      overscrollBehavior: 'contain',
+      maxHeight: '80vh',
+      boxSizing: 'border-box',
+      marginTop: 10,
+      marginBottom: 10,
+    }
     console.log("this is props.tasks: " + this.props.tasks);
     if (this.props.tasks != null) {
       let list = [];
@@ -61,7 +71,7 @@ class TaskLoader extends React.Component {
           <Task task={task} delete={this.props.delete} k={count}/>
         );
       }
-      return <div key={this.props.tasks.length}>{list}</div>;
+      return <div style={containerStyle} key={this.props.tasks.length}>{list}</div>;
     }
     return <div></div>;
   }
@@ -115,7 +125,7 @@ class ToDoList extends React.Component {
         });
         this.setState({taskList:newList});
         console.log(this.state.taskList);
-        continue;
+        break;
       }    
     }
   }
@@ -126,14 +136,21 @@ class ToDoList extends React.Component {
       // justifyItems: 'center',
       // alignItems: 'center',
       width: "100vw",
-      height: "auto"
+      maxHeight: '90vh',
+      height: '90vh',
+      borderRadius: 20,
+      backgroundColor: 'lightYellow',
       // justifyItems: 'center',
     };
     var header = {
       // display: 'flex',
       // justifyItems: 'center',
+      position: 'fixed',
       alignItems: "center",
-      width: "70%"
+      width: "70%",
+      maxHeight: '80vh',
+      // overscrollBehavior: 'contain',
+      // overflow: 'hidden'
     };
     var formStyle = {
       display: "flex",
@@ -144,15 +161,17 @@ class ToDoList extends React.Component {
       fontSize: 24,
       marginRight: 20,
       width: 225,
-      height: 60,
-      borderRadius: 20
+      height: 55,
+      marginTop: 20
+      // borderRadius: 20
     };
     var buttonStyle = {
       fontFamily: "sans-serif",
       fontSize: 24,
       height: 60,
       width: 100,
-      borderRadius: 20
+      marginTop: 20
+      // borderRadius: 20
     };
     return (
       <div style={todoListContainer}>
