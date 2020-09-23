@@ -148,9 +148,9 @@ class ToDoList extends React.Component {
       position: 'fixed',
       alignItems: "center",
       width: "70%",
-      maxHeight: '80vh',
+      maxHeight: '85vh',
       // overscrollBehavior: 'contain',
-      // overflow: 'hidden'
+      overflow: 'hidden'
     };
     var formStyle = {
       display: "flex",
