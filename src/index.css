@@ -2,9 +2,9 @@ body {
   padding: 50px;
   background-color: lightblue;
   font-family: sans-serif;
+  overflow: hidden;
 }
 #root {
   display: flex;
   justify-content: center;
-  overflow: auto;
 }
