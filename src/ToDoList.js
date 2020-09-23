@@ -1,6 +1,6 @@
 import React from "react";
 import TaskLoader from "./TaskLoader";
-
+import "./index.css";
 class ToDoList extends React.Component {
   constructor(props) {
     super(props);
@@ -19,32 +19,23 @@ class ToDoList extends React.Component {
         text: this._inputElement.value,
         key: Date.now()
       };
-      this.setState((prevState) => {
+      this.setState(prevState => {
         return {
           taskList: prevState.taskList.concat(newTask)
         };
       });
-      this._inputElement.value = "";  
+      this._inputElement.value = "";
     }
     e.preventDefault();
   }
-  deleteTask(task) {
-    console.log("hello m8");
-    let list = this.state.taskList;
-    for (let item in list) {
-      console.log("task in deleteTask: " + typeof task);
-      console.log("list[item] in deleteTask: " + typeof list[item]);
-      console.log("equality in deleteTask: " + (task === list[item]));
-      if (task === list[item]) {
-        delete list[item];
-        let newList = list.filter(val => {
-          return val != null;
-        });
-        this.setState({ taskList: newList });
-        console.log(this.state.taskList);
-        break;
-      }
-    }
+  deleteTask(key) {
+    var filteredList = this.state.taskList.filter(function(item) {
+      return item.key !== key;
+    });
+
+    this.setState({
+      taskList: filteredList
+    });
   }
   componentDidMount() {
     this.updateDimensions();
@@ -116,13 +107,10 @@ class ToDoList extends React.Component {
           <form onSubmit={this.addTask} style={formStyle}>
             <input
               placeholder="Enter Task"
-              ref = {(a) => this._inputElement = a}
+              ref={a => (this._inputElement = a)}
               style={inputStyle}
             />
-            <button
-              type="submit"
-              style={buttonStyle}
-            >
+            <button type="submit" style={buttonStyle}>
               add
             </button>
           </form>
