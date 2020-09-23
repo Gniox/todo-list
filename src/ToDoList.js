@@ -61,7 +61,7 @@ class ToDoList extends React.Component {
       // justifyItems: 'center',
       // alignItems: 'center',
       width: "100vw",
-      maxHeight: "90vh",
+      // maxHeight: "85vh",
       height: "85vh",
       borderRadius: 20,
       backgroundColor: "#e8c090"
@@ -73,9 +73,9 @@ class ToDoList extends React.Component {
       // position: 'fixed',
       alignItems: "center",
       width: "70%",
-      maxHeight: "85vh",
+      maxHeight: "75vh",
       // overscrollBehavior: 'contain',
-      overflow: "hidden"
+      // overflow: "hidden"
     };
     var formStyle = {
       display: "flex",
