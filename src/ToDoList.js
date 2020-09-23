@@ -145,7 +145,7 @@ class ToDoList extends React.Component {
     var header = {
       // display: 'flex',
       // justifyItems: 'center',
-      position: 'fixed',
+      // position: 'fixed',
       alignItems: "center",
       width: "70%",
       maxHeight: '85vh',
