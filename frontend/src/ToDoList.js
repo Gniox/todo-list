@@ -6,12 +6,10 @@ class ToDoList extends React.Component {
     super(props);
     this.state = {
       taskList: [],
-      windowWidth: 0,
-      widnowHeight: 0
     };
     this.addTask = this.addTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
-    this.updateDimensions = this.updateDimensions.bind(this);
+   
   }
   addTask(e) {
     if (this._inputElement.value !== "") {
@@ -37,43 +35,18 @@ class ToDoList extends React.Component {
       taskList: filteredList
     });
   }
-  componentDidMount() {
-    this.updateDimensions();
-    window.addEventListener("resize", this.updateDimensions);
-  }
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.updateDimensions);
-  }
-  updateDimensions() {
-    let windowWidth = typeof window !== "undefined" ? window.innerWidth : 0;
-    let windowHeight = typeof window !== "undefined" ? window.innerHeight : 0;
-
-    this.setState({ windowWidth, windowHeight });
-  }
   render() {
-    const { windowWidth } = this.state;
+    const width = this.props.windowWidth;
 
-    const smaller = windowWidth < 600;
+    const smaller = width < 600;
 
-    var todoListContainer = {
-      display: "flex",
-      // marginBottom: "auto",
-      // justifyItems: 'center',
-      // alignItems: 'center',
-      width: "75%",
-      // maxHeight: "85vh",
-      height: "85vh",
-      borderRadius: 20,
-      backgroundColor: "#e8c090",
-      // justifyItems: 'center',
-    };
     var header = {
       // display: 'flex',
       // justifyItems: 'center',
       // position: 'fixed',
       alignItems: "center",
       width: "100%",
-      maxHeight: "75vh",
+      maxHeight: "75vh"
       // overscrollBehavior: 'contain',
       // overflow: "hidden"
     };
@@ -102,24 +75,22 @@ class ToDoList extends React.Component {
       // borderRadius: 20
     };
     return (
-      <div style={todoListContainer}>
-        <div style={header}>
-          <form onSubmit={this.addTask} style={formStyle}>
-            <input
-              placeholder="Enter Task"
-              ref={a => (this._inputElement = a)}
-              style={inputStyle}
-            />
-            <button type="submit" style={buttonStyle}>
-              add
-            </button>
-          </form>
-          <TaskLoader
-            tasks={this.state.taskList}
-            delete={this.deleteTask}
-            smaller={smaller}
-          ></TaskLoader>
-        </div>
+      <div style={header}>
+        <form onSubmit={this.addTask} style={formStyle}>
+          <input
+            placeholder="Enter Task"
+            ref={a => (this._inputElement = a)}
+            style={inputStyle}
+          />
+          <button type="submit" style={buttonStyle}>
+            add
+          </button>
+        </form>
+        <TaskLoader
+          tasks={this.state.taskList}
+          delete={this.deleteTask}
+          smaller={smaller}
+        ></TaskLoader>
       </div>
     );
   }
