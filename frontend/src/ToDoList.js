@@ -61,7 +61,8 @@ class ToDoList extends React.Component {
       width: smaller ? "50%" : "30%",
       height: "auto",
       marginTop: 20,
-      borderColor: "transparent"
+      borderColor: "transparent",
+      padding: 5,
       // borderRadius: 20
     };
     var buttonStyle = {
@@ -71,7 +72,8 @@ class ToDoList extends React.Component {
       width: smaller ? "25%" : "15%",
       marginTop: 20,
       borderColor: "transparent",
-      backgroundColor: "violet"
+      backgroundColor: "violet",
+      padding: 5,
       // borderRadius: 20
     };
     return (

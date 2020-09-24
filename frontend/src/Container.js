@@ -1,48 +1,38 @@
 import React from "react";
-import TodoList from "./ToDoList";
-import LogIn from "./LogIn";
-import SignUp from "./SignUp";
+import Nav from "./Nav";
 import Burger from "./Burger/Burger";
-class Container extends React.Component {
+
+export default class Container extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      first: true,
       signup: false,
       signUpScreen: true,
-      login: false,
-      loginScreen: false,
-      windowWidth: 0,
-      windowHeight: 0
+      logIn: false,
+      logInScreen: false
     };
-    this.updateDimensions = this.updateDimensions.bind(this);
-    this.signUpStatus = this.signUpStatus.bind(this);
+    this.navStatus = this.navStatus.bind(this);
   }
-  signUpStatus(object) {
+  navStatus(object) {
     if (object != null) {
-      this.setState({
-        signUp: object.signUp,
-        signUpScreen: object.signUpScreen
-      });
-    } else {
-      this.setState({
-        signUp: false,
-        signUpScreen: true
-      });
-      console.log("did you make it here");
-    }
-  }
-  componentDidMount() {
-    this.updateDimensions();
-    window.addEventListener("resize", this.updateDimensions);
-  }
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.updateDimensions);
-  }
-  updateDimensions() {
-    let windowWidth = typeof window !== "undefined" ? window.innerWidth : 0;
-    let windowHeight = typeof window !== "undefined" ? window.innerHeight : 0;
-
-    this.setState({ windowWidth, windowHeight });
+      if (this.state.first) {
+        this.setState({
+          signUp: object.signUp,
+          signUpScreen: object.signUpScreen,
+          logIn: object.logIn,
+          logInScreen: object.logInScreen,
+          first: object.first
+        });
+      } else {
+        this.setState({
+          signUp: object.signUp,
+          signUpScreen: object.signUpScreen,
+          logIn: object.logIn,
+          logInScreen: object.logInScreen
+        });
+      }
+    } 
   }
   render() {
     var todoListContainer = {
@@ -54,33 +44,28 @@ class Container extends React.Component {
       // maxHeight: "85vh",
       height: "85vh",
       borderRadius: 20,
-      backgroundColor: "#e8c090"
+      backgroundColor: this.state.signUpScreen || this.state.logInScreen ? "transparent": "#e8c090",
       // justifyItems: 'center',
     };
-    if (this.state.signUpScreen) {
+    if (this.state.first) {
       return (
         <div style={todoListContainer}>
-          <SignUp
-            windowWidth={this.state.windowWidth}
-            next={this.signUpStatus}
-          ></SignUp>
-        </div>
-      );
-    } else if (this.state.loginScreen) {
-      return (
-        <div style={todoListContainer}>
-          <LogIn windowWidth={this.state.windowWidth}></LogIn>
+          <Nav
+            screenState={this.state}
+            navStatus={this.navStatus}
+          ></Nav>
         </div>
       );
     } else {
       return (
         <div style={todoListContainer}>
-          <Burger onClick={this.signUpStatus}></Burger>
-          <TodoList windowWidth={this.state.windowWidth}></TodoList>
+          <Burger
+            onClick={this.navStatus}
+            screenState={this.state}
+          ></Burger>
+          <Nav screenState={this.state} navStatus={this.navStatus}></Nav>
         </div>
       );
     }
   }
 }
-
-export default Container;

@@ -9,10 +9,50 @@ class SignUp extends React.Component {
       password: ""
     };
     this.signedUp = this.signedUp.bind(this);
+    this.skipSignUp = this.skipSignUp.bind(this);
+    this.logIn = this.logIn.bind(this);
   }
   signedUp() {
-    let temp = {signUp: true, signUpScreen: false};
-    console.log("hello dude");
+    let temp;
+
+    temp = {
+      signUp: true,
+      signUpScreen: false,
+      logIn: false,
+      logInScreen: false
+    };
+    console.log("signed up");
+    this.props.next(temp);
+  }
+  skipSignUp() {
+    let temp;
+
+    temp = {
+      signUp: false,
+      signUpScreen: false,
+      logIn: false,
+      logInScreen: false
+    };
+    this.props.next(temp);
+  }
+  logIn() {
+    let temp;
+    if (this.props.screenState.first)
+      temp = {
+        signUp: false,
+        signUpScreen: false,
+        logIn: false,
+        logInScreen: true,
+        first: true
+      };
+    else
+      temp = {
+        signUp: false,
+        signUpScreen: false,
+        logIn: false,
+        logInScreen: true
+      };
+    console.log("yoyoyo");
     this.props.next(temp);
   }
   render() {
@@ -33,7 +73,9 @@ class SignUp extends React.Component {
       // display: "flex",
       // alignItems: "center",
       width: smaller ? "80%" : "40%",
-      // height: "100%",
+      // height: "80%",
+      background: "#eb5e8d",
+      padding: 20
       // justifyContent: "center"
       // margin: "0 auto",
       // maxWidth: "360"
@@ -61,12 +103,39 @@ class SignUp extends React.Component {
       marginTop: 10,
       borderColor: "transparent",
       backgroundColor: "violet",
+      cursor: "pointer"
       // alignSelf: "center"
       // borderRadius: 20
+    };
+    var headerStyle = {
+      padding: 10,
+      textAlign: "center",
+      background: "#68609e",
+      marginBottom: 10
+    };
+    var skipButtonStyle = {
+      background: "transparent",
+      // width: "100%",
+      borderColor: "transparent",
+      marginTop: 10,
+      cursor: "pointer"
+    };
+    var logInButtonStyle = {
+      background: "transparent",
+      // width: "100%",
+      borderColor: "transparent",
+      marginTop: 10,
+      cursor: "pointer"
+      // justifyContent: "flex-end"
+    };
+    var buttonContainer = {
+      display: "flex",
+      justifyContent: "space-between"
     };
     return (
       <div style={container}>
         <form style={formStyle} onSubmit={this.signedUp}>
+          <h1 style={headerStyle}>Sign Up</h1>
           <label htmlFor="name">
             <b>Name</b>
           </label>
@@ -80,6 +149,14 @@ class SignUp extends React.Component {
           </label>
           <input type="password" name="password" style={inputStyle} />
           <button style={buttonStyle}>Sign Up</button>
+          <div style={buttonContainer}>
+            <button style={skipButtonStyle} onClick={this.skipSignUp}>
+              Skip Sign Up
+            </button>
+            <button style={logInButtonStyle} onClick={this.logIn}>
+              Log In
+            </button>
+          </div>
         </form>
       </div>
     );
