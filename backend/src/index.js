@@ -1,18 +1,32 @@
 import "dotenv/config";
-import cors from "cors";
+// import cors from "cors";
 import express from "express";
-import models, { connectDb } from "./models";
+import connectDB from "./models/db";
+import user from "./routes/user";
+import bodyParser from "body-parser";
+
+//mongo connection
+connectDB();
 
 const app = express();
 
-app.use(cors());
+// app.use(cors());
+//Middleware
+app.use(bodyParser.json());
+// app.use(express.urlencoded({ extended: true}));
+// app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.json({ message: "API Working"});
 });
 
-connectDb().then(async () => {
-  app.listen(process.env.PORT, () =>
-    console.log(`Example App listening on port ${process.env.PORT}`)
-  );
+/**
+ * Router Middleware
+ * Router = /user/*
+ * Method - *
+ */
+app.use("/user", user);
+
+app.listen(process.env.PORT, (req, res) => {
+  console.log(`Server started at PORT ${process.env.PORT}`);
 });

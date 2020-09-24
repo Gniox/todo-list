@@ -1,28 +1,33 @@
-import mongoose from 'mongoose';
+const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema(
+const UserSchema = mongoose.Schema(
   {
     username: {
       type: String,
-      unique: true,
       required: true,
     },
+    email: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true
+    }
   },
   {timestamps: true},
 );
 
-userSchema.static.findByLogin = async function (login) {
-  let user = await this.findOne({
-    username: login,
-  });
+// userSchema.static.findByLogin = async function (login) {
+//   let user = await this.findOne({
+//     username: login,
+//   });
 
-  if(!user) {
-    user = await this.findOne({ email: login});
-  }
+//   if(!user) {
+//     user = await this.findOne({ email: login});
+//   }
 
-  return user;
-};
+//   return user;
+// };
 
-const User = mongoose.model('User', userSchema);
-
-export default User;
+module.exports = mongoose.model("user", UserSchema);
