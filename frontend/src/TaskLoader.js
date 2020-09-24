@@ -30,11 +30,12 @@ class TaskLoader extends React.Component {
       overflow: "scroll",
       overscrollBehavior: "contain",
       maxHeight: "75vh",
-      boxSizing: "border-box",
+      // boxSizing: "border-box",
+      alignItems: "center",
       marginTop: 10,
       marginBottom: 10,
       listStyle: "none",
-      paddingLeft: 0
+      // paddingLeft: 0
     };
     let liStyle = {
       

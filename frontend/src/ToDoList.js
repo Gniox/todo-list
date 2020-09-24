@@ -57,14 +57,14 @@ class ToDoList extends React.Component {
 
     var todoListContainer = {
       display: "flex",
-      justifyContent: "center",
+      // marginBottom: "auto",
       // justifyItems: 'center',
       // alignItems: 'center',
-      width: "100vw",
+      width: "75%",
       // maxHeight: "85vh",
       height: "85vh",
       borderRadius: 20,
-      backgroundColor: "#e8c090"
+      backgroundColor: "#e8c090",
       // justifyItems: 'center',
     };
     var header = {
@@ -72,7 +72,7 @@ class ToDoList extends React.Component {
       // justifyItems: 'center',
       // position: 'fixed',
       alignItems: "center",
-      width: "70%",
+      width: "100%",
       maxHeight: "75vh",
       // overscrollBehavior: 'contain',
       // overflow: "hidden"
