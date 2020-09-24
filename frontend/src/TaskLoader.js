@@ -1,5 +1,5 @@
 import React from "react";
-import "./index.css";
+import "./TaskLoader.css";
 import FlipMove from "react-flip-move";
 class TaskLoader extends React.Component {
   constructor(props) {
@@ -34,11 +34,10 @@ class TaskLoader extends React.Component {
       alignItems: "center",
       marginTop: 10,
       marginBottom: 10,
-      listStyle: "none",
+      listStyle: "none"
       // paddingLeft: 0
     };
     let liStyle = {
-      
       fontSize: this.props.smaller ? 15 : 24
     };
     console.log("this is props.tasks: " + this.props.tasks);

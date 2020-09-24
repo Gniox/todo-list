@@ -7,18 +7,29 @@ class Container extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      signup: true,
+      signup: false,
+      signUpScreen: true,
       login: false,
+      loginScreen: false,
       windowWidth: 0,
       windowHeight: 0
     };
     this.updateDimensions = this.updateDimensions.bind(this);
     this.signUpStatus = this.signUpStatus.bind(this);
   }
-  signUpStatus() {
-    this.setState({
-      signup: false
-    });
+  signUpStatus(object) {
+    if (object != null) {
+      this.setState({
+        signUp: object.signUp,
+        signUpScreen: object.signUpScreen
+      });
+    } else {
+      this.setState({
+        signUp: false,
+        signUpScreen: true
+      });
+      console.log("did you make it here");
+    }
   }
   componentDidMount() {
     this.updateDimensions();
@@ -46,7 +57,7 @@ class Container extends React.Component {
       backgroundColor: "#e8c090"
       // justifyItems: 'center',
     };
-    if (this.state.signup) {
+    if (this.state.signUpScreen) {
       return (
         <div style={todoListContainer}>
           <SignUp
@@ -55,7 +66,7 @@ class Container extends React.Component {
           ></SignUp>
         </div>
       );
-    } else if (this.state.login) {
+    } else if (this.state.loginScreen) {
       return (
         <div style={todoListContainer}>
           <LogIn windowWidth={this.state.windowWidth}></LogIn>
@@ -64,7 +75,7 @@ class Container extends React.Component {
     } else {
       return (
         <div style={todoListContainer}>
-          <Burger></Burger>
+          <Burger onClick={this.signUpStatus}></Burger>
           <TodoList windowWidth={this.state.windowWidth}></TodoList>
         </div>
       );

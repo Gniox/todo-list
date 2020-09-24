@@ -71,7 +71,7 @@ class ToDoList extends React.Component {
       width: smaller ? "25%" : "15%",
       marginTop: 20,
       borderColor: "transparent",
-      backgroundColor: "#9e55ab"
+      backgroundColor: "violet"
       // borderRadius: 20
     };
     return (
