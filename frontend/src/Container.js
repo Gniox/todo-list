@@ -2,18 +2,24 @@ import React from "react";
 import TodoList from "./ToDoList";
 import LogIn from "./LogIn";
 import SignUp from "./SignUp";
-
+import Burger from "./Burger/Burger";
 class Container extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      signup: true,
       login: false,
       windowWidth: 0,
       windowHeight: 0
     };
     this.updateDimensions = this.updateDimensions.bind(this);
+    this.signUpStatus = this.signUpStatus.bind(this);
   }
-
+  signUpStatus() {
+    this.setState({
+      signup: false
+    });
+  }
   componentDidMount() {
     this.updateDimensions();
     window.addEventListener("resize", this.updateDimensions);
@@ -43,19 +49,23 @@ class Container extends React.Component {
     if (this.state.signup) {
       return (
         <div style={todoListContainer}>
-          <SignUp windowWidth = {this.state.windowWidth}></SignUp>
+          <SignUp
+            windowWidth={this.state.windowWidth}
+            next={this.signUpStatus}
+          ></SignUp>
         </div>
       );
     } else if (this.state.login) {
       return (
         <div style={todoListContainer}>
-          <LogIn windowWidth = {this.state.windowWidth}></LogIn>
+          <LogIn windowWidth={this.state.windowWidth}></LogIn>
         </div>
       );
     } else {
       return (
         <div style={todoListContainer}>
-          <TodoList windowWidth = {this.state.windowWidth}></TodoList>
+          <Burger></Burger>
+          <TodoList windowWidth={this.state.windowWidth}></TodoList>
         </div>
       );
     }
