@@ -1,5 +1,5 @@
 import "dotenv/config";
-// import cors from "cors";
+import cors from "cors";
 import express from "express";
 import connectDB from "./models/db";
 import user from "./routes/user";
@@ -10,7 +10,8 @@ connectDB();
 
 const app = express();
 
-// app.use(cors());
+app.use(cors());
+
 //Middleware
 app.use(bodyParser.json());
 // app.use(express.urlencoded({ extended: true}));
