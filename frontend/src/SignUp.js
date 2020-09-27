@@ -1,25 +1,84 @@
 import React from "react";
 
+let user_requests = require('./requests/user_requests');
+
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       username: "",
       email: "",
-      password: ""
+      password: "",
+      errors: {
+        username: "",
+        email: "",
+        password: "",
+      },
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.validateEmail = this.validateEmail.bind(this);
     this.signedUp = this.signedUp.bind(this);
     this.skipSignUp = this.skipSignUp.bind(this);
     this.logIn = this.logIn.bind(this);
   }
+  componentdidMount = async () => {
+    let token = localStorage.getItem("@user");
+    console.log("component");
+    if (token !== null) {
+      let temp;
+      temp = {
+        signUp: false,
+        signUpScreen: false,
+        logIn: true,
+        logInScreen: false,
+        first: false,
+      };
+      console.log("Logged On");
+      this.props.next(temp);
+    }
+  };
+  handleChange = (event) => {
+    event.preventDefault();
+    const { name, value } = event.target;
+    let errors = this.state.errors;
+
+    switch (name) {
+      case "name":
+        this.setState({ username: value });
+        errors.fullName =
+          value.length < 5 ? "Full Name must be 5 characters long!" : "";
+        break;
+      case "email":
+        this.setState({ email: value });
+        errors.email = this.validateEmail(value) ? "" : "Email is not valid!";
+        break;
+      case "password":
+        this.setState({ password: value });
+        errors.password =
+          value.length < 8 ? "Password must be 8 characters long!" : "";
+        break;
+      default:
+        break;
+    }
+
+    this.setState({ [name]: value }, () => {
+      console.log(errors);
+    });
+  };
+  validateEmail(email) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  }
   signedUp() {
     let temp;
+
+    user_requests.signUp(this.state.username, this.state.email, this.state.password);
 
     temp = {
       signUp: true,
       signUpScreen: false,
       logIn: false,
-      logInScreen: false
+      logInScreen: false,
     };
     console.log("signed up");
     this.props.next(temp);
@@ -31,7 +90,7 @@ class SignUp extends React.Component {
       signUp: false,
       signUpScreen: false,
       logIn: false,
-      logInScreen: false
+      logInScreen: false,
     };
     this.props.next(temp);
   }
@@ -43,14 +102,14 @@ class SignUp extends React.Component {
         signUpScreen: false,
         logIn: false,
         logInScreen: true,
-        first: true
+        first: true,
       };
     else
       temp = {
         signUp: false,
         signUpScreen: false,
         logIn: false,
-        logInScreen: true
+        logInScreen: true,
       };
     console.log("yoyoyo");
     this.props.next(temp);
@@ -66,7 +125,7 @@ class SignUp extends React.Component {
       alignItems: "center",
       // height: '20%',
       // width: "20%",
-      margin: "0 auto"
+      margin: "0 auto",
       // padding: "60"
     };
     var formStyle = {
@@ -75,7 +134,7 @@ class SignUp extends React.Component {
       width: smaller ? "80%" : "40%",
       // height: "80%",
       background: "#eb5e8d",
-      padding: 20
+      padding: 20,
       // justifyContent: "center"
       // margin: "0 auto",
       // maxWidth: "360"
@@ -92,7 +151,7 @@ class SignUp extends React.Component {
       width: "100%",
       // height: "auto",
       // marginTop: 20,
-      borderColor: "transparent"
+      borderColor: "transparent",
       // borderRadius: 20
     };
     var buttonStyle = {
@@ -103,7 +162,7 @@ class SignUp extends React.Component {
       marginTop: 10,
       borderColor: "transparent",
       backgroundColor: "violet",
-      cursor: "pointer"
+      cursor: "pointer",
       // alignSelf: "center"
       // borderRadius: 20
     };
@@ -111,26 +170,26 @@ class SignUp extends React.Component {
       padding: 10,
       textAlign: "center",
       background: "#68609e",
-      marginBottom: 10
+      marginBottom: 10,
     };
     var skipButtonStyle = {
       background: "transparent",
       // width: "100%",
       borderColor: "transparent",
       marginTop: 10,
-      cursor: "pointer"
+      cursor: "pointer",
     };
     var logInButtonStyle = {
       background: "transparent",
       // width: "100%",
       borderColor: "transparent",
       marginTop: 10,
-      cursor: "pointer"
+      cursor: "pointer",
       // justifyContent: "flex-end"
     };
     var buttonContainer = {
       display: "flex",
-      justifyContent: "space-between"
+      justifyContent: "space-between",
     };
     return (
       <div style={container}>
@@ -139,15 +198,33 @@ class SignUp extends React.Component {
           <label htmlFor="name">
             <b>Name</b>
           </label>
-          <input type="text" name="name" style={inputStyle} />
+          <input
+            type="text"
+            name="name"
+            style={inputStyle}
+            value={this.state.username}
+            onChange={this.handleChange}
+          />
           <label htmlFor="email">
             <b>Email</b>
           </label>
-          <input type="text" name="email" style={inputStyle} />
+          <input
+            type="text"
+            name="email"
+            style={inputStyle}
+            value={this.state.email}
+            onChange={this.handleChange}
+          />
           <label htmlFor="password">
             <b>Password</b>
           </label>
-          <input type="password" name="password" style={inputStyle} />
+          <input
+            type="password"
+            name="password"
+            style={inputStyle}
+            value={this.state.password}
+            onChange={this.handleChange}
+          />
           <button style={buttonStyle}>Sign Up</button>
           <div style={buttonContainer}>
             <button style={skipButtonStyle} onClick={this.skipSignUp}>

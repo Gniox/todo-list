@@ -158,4 +158,16 @@ router.get("/me", auth, async (req, res) => {
   }
 });
 
+router.put("/update", auth, async (req,res) => {
+  try {
+    console.log("something something: " + JSON.stringify(req.body.tasks))
+    const user = await User.findById(req.user.id)
+    await user.updateOne({$set: {'tasks': JSON.stringify(req.body.tasks)}});
+    await user.save();
+    res.json(user);
+  } catch (e) {
+    res.send({ message: "Error updating and returning"});
+  }
+});
+
 module.exports = router;

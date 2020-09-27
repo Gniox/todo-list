@@ -1,6 +1,8 @@
 import React from "react";
 import TaskLoader from "./TaskLoader";
 import "./index.css";
+
+let user_requests = require("./requests/user_requests");
 class ToDoList extends React.Component {
   constructor(props) {
     super(props);
@@ -9,30 +11,36 @@ class ToDoList extends React.Component {
     };
     this.addTask = this.addTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
-   
   }
-  addTask(e) {
+  componentDidMount = async () => {
+    let user = await JSON.parse(localStorage.getItem("@user"));
+    console.log("todolist: " + user.tasks)
+    this.setState({taskList: JSON.parse(user.tasks.slice())});
+  };
+  async addTask(e) {
+    e.preventDefault();
     if (this._inputElement.value !== "") {
       var newTask = {
         text: this._inputElement.value,
-        key: Date.now()
+        key: Date.now(),
       };
-      this.setState(prevState => {
+      this.setState((prevState) => {
         return {
-          taskList: prevState.taskList.concat(newTask)
+          taskList: prevState.taskList.concat(newTask),
         };
       });
       this._inputElement.value = "";
+      console.log("tasklist: " + await this.state.taskList);
+      user_requests.update(this.state.taskList);
     }
-    e.preventDefault();
   }
   deleteTask(key) {
-    var filteredList = this.state.taskList.filter(function(item) {
+    var filteredList = this.state.taskList.filter(function (item) {
       return item.key !== key;
     });
 
     this.setState({
-      taskList: filteredList
+      taskList: filteredList,
     });
   }
   render() {
@@ -46,13 +54,13 @@ class ToDoList extends React.Component {
       // position: 'fixed',
       alignItems: "center",
       width: "100%",
-      maxHeight: "75vh"
+      maxHeight: "75vh",
       // overscrollBehavior: 'contain',
       // overflow: "hidden"
     };
     var formStyle = {
       display: "flex",
-      justifyContent: "center"
+      justifyContent: "center",
     };
     var inputStyle = {
       fontFamily: "sans-serif",
@@ -81,7 +89,7 @@ class ToDoList extends React.Component {
         <form onSubmit={this.addTask} style={formStyle}>
           <input
             placeholder="Enter Task"
-            ref={a => (this._inputElement = a)}
+            ref={(a) => (this._inputElement = a)}
             style={inputStyle}
           />
           <button type="submit" style={buttonStyle}>

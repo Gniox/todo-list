@@ -63,13 +63,12 @@ class LogIn extends React.Component {
   }
   loggedOn = async () => {
     let temp;
-    let user = await user_requests.sendLogIn(
+    user_requests.sendLogIn(
       this.state.email,
       this.state.password
     );
 
-    await localStorage.setItem("@user", JSON.stringify(user));
-
+    console.log("user in login: " + localStorage.getItem("@user"));
     temp = {
       signUp: false,
       signUpScreen: false,
@@ -77,7 +76,7 @@ class LogIn extends React.Component {
       logInScreen: false,
       first: false,
     };
-    console.log("Logged On");
+    // console.log("Logged On");
     this.props.next(temp);
   };
   signUp() {
