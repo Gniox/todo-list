@@ -14,8 +14,8 @@ class ToDoList extends React.Component {
   }
   componentDidMount = async () => {
     let user = await JSON.parse(localStorage.getItem("@user"));
-    console.log("todolist: " + user.tasks)
-    this.setState({taskList: JSON.parse(user.tasks.slice())});
+    console.log("todolist: " + user.tasks);
+    this.setState({ taskList: JSON.parse(user.tasks.slice()) });
   };
   async addTask(e) {
     e.preventDefault();
@@ -24,24 +24,26 @@ class ToDoList extends React.Component {
         text: this._inputElement.value,
         key: Date.now(),
       };
-      this.setState((prevState) => {
+      await this.setState((prevState) => {
         return {
           taskList: prevState.taskList.concat(newTask),
         };
       });
       this._inputElement.value = "";
-      console.log("tasklist: " + await this.state.taskList);
+      console.log("tasklist: " + this.state.taskList);
       user_requests.update(this.state.taskList);
     }
   }
-  deleteTask(key) {
+  async deleteTask(key) {
     var filteredList = this.state.taskList.filter(function (item) {
       return item.key !== key;
     });
 
-    this.setState({
+    await this.setState({
       taskList: filteredList,
     });
+
+    user_requests.update(this.state.taskList);
   }
   render() {
     const width = this.props.windowWidth;
