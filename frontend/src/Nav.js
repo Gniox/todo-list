@@ -8,7 +8,7 @@ class Nav extends React.Component {
     super(props);
     this.state = {
       windowWidth: 0,
-      windowHeight: 0
+      windowHeight: 0,
     };
     this.updateDimensions = this.updateDimensions.bind(this);
     this.handleNext = this.handleNext.bind(this);
@@ -36,7 +36,7 @@ class Nav extends React.Component {
         <SignUp
           windowWidth={this.state.windowWidth}
           next={this.handleNext}
-          screenState = {this.props.screenState}
+          screenState={this.props.screenState}
         ></SignUp>
       );
     } else if (this.props.screenState.logInScreen) {
