@@ -27,7 +27,7 @@ class TaskLoader extends React.Component {
 
   render() {
     let containerStyle = {
-      overflow: "scroll",
+      overflow: "hidden",
       overscrollBehavior: "contain",
       maxHeight: "75vh",
       // boxSizing: "border-box",
