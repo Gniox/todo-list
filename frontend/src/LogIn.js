@@ -63,10 +63,7 @@ class LogIn extends React.Component {
   }
   loggedOn = async () => {
     let temp;
-    user_requests.sendLogIn(
-      this.state.email,
-      this.state.password
-    );
+    user_requests.sendLogIn(this.state.email, this.state.password);
 
     console.log("user in login: " + localStorage.getItem("@user"));
     temp = {
@@ -82,12 +79,23 @@ class LogIn extends React.Component {
   signUp() {
     let temp;
 
-    temp = {
-      signUp: false,
-      signUpScreen: true,
-      logIn: false,
-      logInScreen: false,
-    };
+    if (this.props.screenState.first) {
+      temp = {
+        signUp: false,
+        signUpScreen: true,
+        logIn: false,
+        logInScreen: false,
+        first: true,
+      };
+    } else {
+      temp = {
+        signUp: false,
+        signUpScreen: true,
+        logIn: false,
+        logInScreen: false,
+      };
+    }
+
     console.log("yoyoyo");
     this.props.next(temp);
   }
@@ -99,6 +107,7 @@ class LogIn extends React.Component {
       signUpScreen: false,
       logIn: false,
       logInScreen: false,
+      logOffScreen: false,
       first: false,
     };
     this.props.next(temp);
@@ -206,7 +215,7 @@ class LogIn extends React.Component {
           />
           <button style={buttonStyle}>Log In</button>
           <div style={buttonContainer}>
-            <button style={skipButtonStyle} onClick={this.SignUp}>
+            <button style={skipButtonStyle} onClick={this.signUp}>
               Sign Up
             </button>
             <button style={logInButtonStyle} onClick={this.skipLogIn}>
