@@ -3,6 +3,7 @@ import TaskLoader from "./TaskLoader";
 import "./index.css";
 
 let user_requests = require("./requests/user_requests");
+
 class ToDoList extends React.Component {
   constructor(props) {
     super(props);
@@ -31,7 +32,10 @@ class ToDoList extends React.Component {
       });
       this._inputElement.value = "";
       console.log("tasklist: " + this.state.taskList);
-      user_requests.update(this.state.taskList);
+
+      if (localStorage.getItem("@user")) {
+        user_requests.update(this.state.taskList);
+      }
     }
   }
   async deleteTask(key) {
