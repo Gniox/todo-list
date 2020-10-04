@@ -5,7 +5,7 @@ export default class Burger extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
+      open: false,
     };
     this.signUp = this.signUp.bind(this);
   }
@@ -13,11 +13,14 @@ export default class Burger extends React.Component {
     let temp;
     if (
       this.props.screenState.signUpScreen ||
-      this.props.screenState.logInScreen
+      this.props.screenState.logInScreen ||
+      this.props.screenState.logOffScreen
     ) {
-      temp = { signUpScreen: false, logInScreen: false };
+      temp = { signUpScreen: false, logInScreen: false, logOffScreen: false };
+    } else if (this.props.screenState.logIn) {
+      temp = { signUpScreen: false, logInScreen: false, logOffScreen: true };
     } else {
-      temp = { signUp: false, signUpScreen: true };
+      temp = { signUp: false, signUpScreen: true, logOffScreen: false };
     }
     this.setState({ open: !this.state.open });
     this.props.onClick(temp);
