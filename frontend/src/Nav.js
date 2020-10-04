@@ -2,6 +2,7 @@ import React from "react";
 import TodoList from "./ToDoList";
 import LogIn from "./LogIn";
 import SignUp from "./SignUp";
+import LogOff from "./LogOff";
 
 class Nav extends React.Component {
   constructor(props) {
@@ -31,6 +32,35 @@ class Nav extends React.Component {
     this.setState({ windowWidth, windowHeight });
   }
   render() {
+    // switch (this.props.screenState) {
+    //   case this.props.screenState.signUpScreen: {
+    //     return (
+    //       <SignUp
+    //         windowWidth={this.state.windowWidth}
+    //         next={this.handleNext}
+    //         screenState={this.props.screenState}
+    //       ></SignUp>
+    //     );
+    //   }
+    //   case this.props.screenState.logInScreen: {
+    //     return (
+    //       <LogIn
+    //         windowWidth={this.state.windowWidth}
+    //         next={this.handleNext}
+    //       ></LogIn>
+    //     );
+    //   }
+    //   case this.props.screenState.LogIn: {
+    //     return (
+    //       <LogOff
+    //         windowWidth={this.state.windowWidth}
+    //         next={this.handleNext}
+    //       ></LogOff>
+    //     );
+    //   }
+    //   default:
+    //     return <TodoList windowWidth={this.state.windowWidth}></TodoList>;
+    // }
     if (this.props.screenState.signUpScreen) {
       return (
         <SignUp
@@ -44,10 +74,23 @@ class Nav extends React.Component {
         <LogIn
           windowWidth={this.state.windowWidth}
           next={this.handleNext}
+          screenState={this.props.screenState}
         ></LogIn>
       );
+    } else if (this.props.screenState.logOffScreen) {
+      return (
+        <LogOff
+          windowWidth={this.state.windowWidth}
+          next={this.handleNext}
+        ></LogOff>
+      );
     } else {
-      return <TodoList windowWidth={this.state.windowWidth}></TodoList>;
+      return (
+        <TodoList
+          windowWidth={this.state.windowWidth}
+          next={this.handleNext}
+        ></TodoList>
+      );
     }
   }
 }
