@@ -1,6 +1,6 @@
 import React from "react";
 
-let user_requests = require('./requests/user_requests');
+let user_requests = require("./requests/user_requests");
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -72,7 +72,22 @@ class SignUp extends React.Component {
   signedUp() {
     let temp;
 
-    user_requests.signUp(this.state.username, this.state.email, this.state.password);
+    if (sessionStorage.getItem("@list") !== null) {
+      user_requests.signUp(
+        this.state.username,
+        this.state.email,
+        this.state.password,
+        sessionStorage.getItem("@list")
+      );
+    } else {
+      let list = [];
+      user_requests.signUp(
+        this.state.username,
+        this.state.email,
+        this.state.password,
+        list
+      );
+    }
 
     temp = {
       signUp: true,
