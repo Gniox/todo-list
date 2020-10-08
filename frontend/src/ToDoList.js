@@ -15,9 +15,17 @@ class ToDoList extends React.Component {
   }
   componentDidMount = async () => {
     if (this.props.screenState.signUp || this.props.screenState.logIn) {
+      if (sessionStorage.getItem("@list") !== null) {
+        sessionStorage.removeItem("@list");
+      }
       let user = await JSON.parse(sessionStorage.getItem("@user"));
-      console.log("todolist: " + user.tasks);
+      console.log("todolist: " + user);
       this.setState({ taskList: JSON.parse(user.tasks.slice()) });
+    } else if (sessionStorage.getItem("@list") !== null) {
+      console.log("here " + sessionStorage.getItem("@list"));
+      let list = sessionStorage.getItem("@list");
+      await this.setState({ taskList: JSON.parse(list) });
+      // console.log("@list: " + list);
     }
   };
   async addTask(e) {
@@ -35,8 +43,10 @@ class ToDoList extends React.Component {
       this._inputElement.value = "";
       console.log("tasklist: " + this.state.taskList);
 
-      if (sessionStorage.getItem("@user")) {
+      if (sessionStorage.getItem("@user") !== null) {
         user_requests.update(this.state.taskList);
+      } else {
+        sessionStorage.setItem("@list", JSON.stringify(this.state.taskList));
       }
     }
   }
@@ -49,7 +59,11 @@ class ToDoList extends React.Component {
       taskList: filteredList,
     });
 
-    user_requests.update(this.state.taskList);
+    if (sessionStorage.getItem("@user") !== null) {
+      user_requests.update(this.state.taskList);
+    } else {
+      sessionStorage.setItem("@list", JSON.stringify(this.state.taskList));
+    }
   }
   render() {
     const width = this.props.windowWidth;
