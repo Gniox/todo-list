@@ -17,7 +17,7 @@ export default class Burger extends React.Component {
       this.props.screenState.logOffScreen
     ) {
       temp = { signUpScreen: false, logInScreen: false, logOffScreen: false };
-    } else if (this.props.screenState.logIn) {
+    } else if (this.props.screenState.logIn || this.props.screenState.signup) {
       temp = { signUpScreen: false, logInScreen: false, logOffScreen: true };
     } else {
       temp = { signUp: false, signUpScreen: true, logOffScreen: false };
