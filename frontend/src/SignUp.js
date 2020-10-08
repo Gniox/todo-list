@@ -79,6 +79,7 @@ class SignUp extends React.Component {
       signUpScreen: false,
       logIn: false,
       logInScreen: false,
+      first: false,
     };
     console.log("signed up");
     this.props.next(temp);
@@ -91,6 +92,7 @@ class SignUp extends React.Component {
       signUpScreen: false,
       logIn: false,
       logInScreen: false,
+      first: false,
     };
     this.props.next(temp);
   }
