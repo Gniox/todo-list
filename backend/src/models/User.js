@@ -12,11 +12,11 @@ const UserSchema = mongoose.Schema(
     },
     password: {
       type: String,
-      required: true
+      required: true,
     },
-    tasks: [String]
+    tasks: { type: [String], required: true },
   },
-  {timestamps: true},
+  { timestamps: true }
 );
 
 // userSchema.static.findByLogin = async function (login) {
