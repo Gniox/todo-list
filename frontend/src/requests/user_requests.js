@@ -46,13 +46,14 @@ async function getUser() {
     });
 }
 
-async function signUp(username, email, password) {
+async function signUp(username, email, password, list) {
   fetch("http://localhost:4000/user/signup", {
     method: "POST",
     body: JSON.stringify({
       username: username,
       email: email,
       password: password,
+      tasks: list
     }),
     headers: {
       "Content-type": "application/json; charset=UTF-8",
@@ -90,7 +91,7 @@ async function update(uTasks) {
       }
       return Promise.reject(response);
     })
-    .then((data) => {
+    .then(() => {
       getUser();
     })
     .catch(function (error) {
