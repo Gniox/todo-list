@@ -14,9 +14,11 @@ class ToDoList extends React.Component {
     this.deleteTask = this.deleteTask.bind(this);
   }
   componentDidMount = async () => {
-    let user = await JSON.parse(localStorage.getItem("@user"));
-    console.log("todolist: " + user.tasks);
-    this.setState({ taskList: JSON.parse(user.tasks.slice()) });
+    if (this.props.screenState.signUp || this.props.screenState.logIn) {
+      let user = await JSON.parse(sessionStorage.getItem("@user"));
+      console.log("todolist: " + user.tasks);
+      this.setState({ taskList: JSON.parse(user.tasks.slice()) });
+    }
   };
   async addTask(e) {
     e.preventDefault();
@@ -33,7 +35,7 @@ class ToDoList extends React.Component {
       this._inputElement.value = "";
       console.log("tasklist: " + this.state.taskList);
 
-      if (localStorage.getItem("@user")) {
+      if (sessionStorage.getItem("@user")) {
         user_requests.update(this.state.taskList);
       }
     }
