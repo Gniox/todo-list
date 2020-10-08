@@ -53,7 +53,7 @@ async function signUp(username, email, password, list) {
       username: username,
       email: email,
       password: password,
-      tasks: list
+      tasks: list,
     }),
     headers: {
       "Content-type": "application/json; charset=UTF-8",
