@@ -19,7 +19,7 @@ class LogIn extends React.Component {
     // this.state = this.state.bind(this);
   }
   componentdidMount = async () => {
-    let token = localStorage.getItem("@user");
+    let token = sessionStorage.getItem("@user");
     console.log("component");
     if (token !== null) {
       let temp;
@@ -65,7 +65,7 @@ class LogIn extends React.Component {
     let temp;
     user_requests.sendLogIn(this.state.email, this.state.password);
 
-    console.log("user in login: " + localStorage.getItem("@user"));
+    console.log("user in login: " + sessionStorage.getItem("@user"));
     temp = {
       signUp: false,
       signUpScreen: false,

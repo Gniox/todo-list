@@ -89,6 +89,7 @@ class Nav extends React.Component {
         <TodoList
           windowWidth={this.state.windowWidth}
           next={this.handleNext}
+          screenState={this.props.screenState}
         ></TodoList>
       );
     }

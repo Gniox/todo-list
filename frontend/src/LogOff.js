@@ -6,8 +6,8 @@ class LogOff extends React.Component {
     this.logOff = this.logOff.bind(this);
   }
   logOff = async () => {
-    localStorage.removeItem("@user");
-    localStorage.removeItem("@token");
+    sessionStorage.removeItem("@user");
+    sessionStorage.removeItem("@token");
 
     let temp = {
       signUp: false,
@@ -17,6 +17,8 @@ class LogOff extends React.Component {
       first: true,
     };
     this.props.next(temp);
+
+    alert("You have logged off!");
   };
   render() {
     const width = this.props.windowWidth;

@@ -16,7 +16,7 @@ async function sendLogIn(email, password) {
       return Promise.reject(response);
     })
     .then(async (data) => {
-      await localStorage.setItem("@token", data.token);
+      await sessionStorage.setItem("@token", data.token);
       getUser();
     })
     .catch(function (error) {
@@ -29,7 +29,7 @@ async function getUser() {
     method: "GET",
     headers: {
       "Content-type": "application/json; charset-UTF-8",
-      token: localStorage.getItem("@token"),
+      token: sessionStorage.getItem("@token"),
     },
   })
     .then(function (response) {
@@ -39,7 +39,7 @@ async function getUser() {
       return Promise.reject(response);
     })
     .then(async (data) => {
-      await localStorage.setItem("@user", JSON.stringify(data));
+      await sessionStorage.setItem("@user", JSON.stringify(data));
     })
     .catch(function (error) {
       console.warn("something went wrong.", error);
@@ -65,7 +65,7 @@ async function signUp(username, email, password) {
       return Promise.reject(response);
     })
     .then(async (data) => {
-      await localStorage.setItem("@token", data.token);
+      await sessionStorage.setItem("@token", data.token);
       getUser();
     })
     .catch(function (error) {
@@ -81,7 +81,7 @@ async function update(uTasks) {
     }),
     headers: {
       "Content-type": "application/json; charset=UTF-8",
-      token: localStorage.getItem("@token"),
+      token: sessionStorage.getItem("@token"),
     },
   })
     .then(function (response) {
@@ -95,7 +95,7 @@ async function update(uTasks) {
     })
     .catch(function (error) {
       console.warn(
-        "Something went wrong." + localStorage.getItem("@token"),
+        "Something went wrong." + sessionStorage.getItem("@token"),
         error
       );
     });
