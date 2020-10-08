@@ -34,7 +34,7 @@ router.post(
       });
     }
 
-    const { username, email, password } = req.body;
+    const { username, email, password, tasks } = req.body;
     try {
       let user = await User.findOne({
         email
@@ -48,8 +48,14 @@ router.post(
       user = new User({
         username,
         email,
-        password
+        password,
+        tasks
       });
+
+      console.log("req.body: " + req.body.tasks);
+      console.log("tasks: " + JSON.stringify(tasks));
+
+      // user.updateOne({$set: {'tasks': JSON.stringify(tasks)}}); 
 
       const salt = await bcrypt.genSalt(10);
       user.password = await bcrypt.hash(password, salt);
