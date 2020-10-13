@@ -66,15 +66,31 @@ class LogIn extends React.Component {
     user_requests.sendLogIn(this.state.email, this.state.password);
 
     console.log("user in login: " + sessionStorage.getItem("@user"));
-    temp = {
-      signUp: false,
-      signUpScreen: false,
-      logIn: true,
-      logInScreen: false,
-      first: false,
-    };
-    // console.log("Logged On");
-    this.props.next(temp);
+
+    if(sessionStorage.getItem("@user") !== null) {
+      temp = {
+        signUp: false,
+        signUpScreen: false,
+        logIn: true,
+        logInScreen: false,
+        first: false,
+      };
+      // console.log("Logged On");
+      this.props.next(temp);
+    } else {
+      alert("User not found");
+
+      temp = {
+        signUp: false,
+        signUpScreen: false,
+        logIn: false,
+        logInScreen: true,
+        first: true,
+      };
+      // console.log("Logged On");
+      this.props.next(temp);
+    }
+   
   };
   signUp() {
     let temp;
