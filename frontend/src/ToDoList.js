@@ -19,13 +19,9 @@ class ToDoList extends React.Component {
         sessionStorage.removeItem("@list");
       }
       let user = await JSON.parse(sessionStorage.getItem("@user"));
-      if(user !== null) {
+      if (user !== null) {
         this.setState({ taskList: JSON.parse(user.tasks.slice()) });
-      } else {
-        alert("User Not Found");
-      }
-
-     
+      } 
     } else if (sessionStorage.getItem("@list") !== null) {
       console.log("here " + sessionStorage.getItem("@list"));
       let list = sessionStorage.getItem("@list");
